@@ -68,7 +68,7 @@
  */
 #define  KEYS__LAYER__PUSH_POP(ID, LAYER)                                   \
     void P(lpupo##ID##l##LAYER) (void) { \
-		if (LAYER == 2) { kb__led__on(2); } \
+		if (ID == 2) { kb__led__on(2); } \
 		layer_stack__push(0, ID, LAYER); \
 	} \
     void R(lpupo##ID##l##LAYER) (void) { \
