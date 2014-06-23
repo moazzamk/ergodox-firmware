@@ -67,8 +67,14 @@
  *       #define  keys__release__lpo1l1  KF(nop)
  */
 #define  KEYS__LAYER__PUSH_POP(ID, LAYER)                                   \
-    void P(lpupo##ID##l##LAYER) (void) { layer_stack__push(0, ID, LAYER); } \
-    void R(lpupo##ID##l##LAYER) (void) { layer_stack__pop_id(ID); }
+    void P(lpupo##ID##l##LAYER) (void) { \
+		if (LAYER == 2) { kb__led__on(2); } \
+		layer_stack__push(0, ID, LAYER); \
+	} \
+    void R(lpupo##ID##l##LAYER) (void) { \
+		if (ID == 2) { kb__led__off(2); } \
+		layer_stack__pop_id(ID); \
+	}
 
 // ----------------------------------------------------------------------------
 
@@ -203,6 +209,9 @@ void R(dmp_eepr) (void) {}
 // - the functions for layers 1 and 2 are special here in that they turn on and
 //   off the corresponding LED (the third LED is reserved for capslock)
 
+
+
+
 KEYS__LAYER__PUSH_POP(0, 0);
 #define  keys__press__lpu0l0    P(lpupo0l0)
 #define  keys__release__lpu0l0  KF(nop)
@@ -228,9 +237,9 @@ KEYS__LAYER__PUSH_POP(3, 3);
 #define  keys__release__lpo3l3  KF(nop)
 
 KEYS__LAYER__PUSH_POP(4, 4);
-#define  keys__press__lpu4l4    P(lpupo4l4)
+void P(lpu4l4) (void) { layer_stack__push(0, 4, 4); kb__led__on(1); }
 #define  keys__release__lpu4l4  KF(nop)
-#define  keys__press__lpo4l4    R(lpupo4l4)
+void P(lpo4l4) (void) { layer_stack__pop_id(4); kb__led__off(1); }
 #define  keys__release__lpo4l4  KF(nop)
 
 KEYS__LAYER__PUSH_POP(5, 5);
@@ -262,4 +271,5 @@ KEYS__LAYER__PUSH_POP(9, 9);
 #define  keys__release__lpu9l9  KF(nop)
 #define  keys__press__lpo9l9    R(lpupo9l9)
 #define  keys__release__lpo9l9  KF(nop)
+
 
