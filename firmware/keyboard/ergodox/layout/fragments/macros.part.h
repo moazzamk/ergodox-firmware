@@ -96,3 +96,57 @@
      { M(k40),M(k41),M(k42),M(k43),M(k44),M(k45),M(k46), M(k47),M(k48),M(k49),M(k4A),M(k4B),M(k4C),M(k4D) },    \
      { M(k50),M(k51),M(k52),M(k53),M(k54),M(k55),M(k56), M(k57),M(k58),M(k59),M(k5A),M(k5B),M(k5C),M(k5D) }}
 
+
+#define K_4 0x5C
+#define K_b 0x05
+#define K_f 0x09
+#define K_l 0x0F
+#define K_r 0x15
+#define K_u 0x18
+#define K_at 0x1F
+#define K_0 0x62
+
+
+#define K_lShift 0xE1
+
+void keyPress(key) {
+	usb__kb__set_key(true, key);
+	usb__kb__send_report();
+	usb__kb__set_key(false, key);
+	usb__kb__send_report();
+}
+
+void keys__press__m_copy(void) {
+	keyPress(K_b);
+	usb__kb__set_key(true, K_4);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_4);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_l);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_l);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_f);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_f);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_0);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_0);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_u);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_u);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_r);
+	usb__kb__send_report();
+	usb__kb__set_key(false, K_r);
+	usb__kb__send_report();
+	usb__kb__set_key(true, K_lShift);
+	usb__kb__send_report();
+	keyPress(K_at);
+	usb__kb__set_key(false, K_lShift);
+	usb__kb__send_report();
+}
+
+void R(m_copy)(void) {}
